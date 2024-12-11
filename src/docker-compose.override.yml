@@ -13,9 +13,9 @@ services:
     catalogdb:
         container_name: catalogdb
         environment:
-            - POSTGRE_USER=postgres
+            - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=root
-            - POSTGRE_DB=CatalogDb
+            - POSTGRES_DB=CatalogDb
         ports:
             - "5432:5432"
         volumes:
