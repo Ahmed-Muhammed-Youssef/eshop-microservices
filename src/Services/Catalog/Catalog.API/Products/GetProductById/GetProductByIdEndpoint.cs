@@ -1,7 +1,4 @@
-﻿
-using Catalog.API.Models;
-
-namespace Catalog.API.Products.GetProductById
+﻿namespace Catalog.API.Products.GetProductById
 {
     record GetProductByIdResponse(Product Product);
     public class GetProductByIdEndpoint : ICarterModule
