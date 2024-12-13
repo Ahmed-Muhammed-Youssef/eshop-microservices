@@ -1,4 +1,5 @@
-﻿using Catalog.API.Products.CreateProduct;
+﻿using Catalog.API.Exceptions;
+using Catalog.API.Products.CreateProduct;
 
 namespace Catalog.API.Products.UpdateProduct
 {
@@ -23,13 +24,8 @@ namespace Catalog.API.Products.UpdateProduct
         {
             _logger.LogInformation(nameof(UpdateProductHandler) + " is called with the command {@Command}", command);
 
-            var product = await _documentSession.LoadAsync<Product>(command.Id, cancellationToken);
+            var product = await _documentSession.LoadAsync<Product>(command.Id, cancellationToken) ?? throw new ProductNotFoundException(command.Id);
 
-            if (product is null)
-            {
-                throw new Exception("Product not found");
-            }
-            
             product.Name = command.Name;
             product.Category = command.Category;
             product.ImageFile = command.ImageFile;

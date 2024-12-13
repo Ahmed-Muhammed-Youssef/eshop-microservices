@@ -1,4 +1,6 @@
-﻿namespace Catalog.API.Products.GetProductById
+﻿using Catalog.API.Exceptions;
+
+namespace Catalog.API.Products.GetProductById
 {
     public record GetProductByIdQuery(Guid Id) : IQuery<GetProductByIdResult>;
     public record GetProductByIdResult(Product Product);
@@ -11,9 +13,9 @@
         {
             _logger.LogInformation(nameof(GetProductByIdHandler) + " is called with query {@Query}", query);
 
-            var product = await _documentSession.LoadAsync<Product>(query.Id, cancellationToken);
+            var product = await _documentSession.LoadAsync<Product>(query.Id, cancellationToken) ?? throw new ProductNotFoundException(query.Id);
 
-            return product is null ? throw new Exception("Product not found") : new GetProductByIdResult(product);
+            return new GetProductByIdResult(product);
         }
        
     }
