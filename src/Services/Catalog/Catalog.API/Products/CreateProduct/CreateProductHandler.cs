@@ -15,12 +15,15 @@
 
     }
 
-    internal class CreateProductCommandHandler(IDocumentSession documentSession) : ICommandHandler<CreateProductCommand, CreateProductResult>
+    internal class CreateProductCommandHandler(IDocumentSession documentSession, ILogger<CreateProductCommandHandler> logger) : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
         private readonly IDocumentSession _documentSession = documentSession;
+        private readonly ILogger<CreateProductCommandHandler> _logger = logger;
 
         public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
+            _logger.LogInformation(nameof(CreateProductCommandHandler) + " is called with the command {@Command}", command);
+
             Product product = new()
             {
                 Name = command.Name,
