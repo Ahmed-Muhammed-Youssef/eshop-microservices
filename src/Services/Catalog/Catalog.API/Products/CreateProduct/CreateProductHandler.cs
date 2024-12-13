@@ -1,6 +1,4 @@
-﻿
-
-namespace Catalog.API.Products.CreateProduct
+﻿namespace Catalog.API.Products.CreateProduct
 {
     public record CreateProductCommand(string Name, List<string> Category, string Description, string ImageFile, decimal Price) : ICommand<CreateProductResult>;
     public record CreateProductResult(Guid Id);
@@ -17,22 +15,12 @@ namespace Catalog.API.Products.CreateProduct
 
     }
 
-    internal class CreateProductCommandHandler(IDocumentSession documentSession, IValidator<CreateProductCommand> validator) : ICommandHandler<CreateProductCommand, CreateProductResult>
+    internal class CreateProductCommandHandler(IDocumentSession documentSession) : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
         private readonly IDocumentSession _documentSession = documentSession;
-        private readonly IValidator<CreateProductCommand> _validator = validator;
 
         public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
-            var result = await _validator.ValidateAsync(command, cancellationToken);
-
-            var errors = result.Errors.Select(e => e.ErrorMessage).ToList();
-
-            if (errors.Count != 0) 
-            {
-                throw new ValidationException(errors.FirstOrDefault());
-            }
-
             Product product = new()
             {
                 Name = command.Name,
