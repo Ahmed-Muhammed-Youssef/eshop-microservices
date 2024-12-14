@@ -1,8 +1,4 @@
 
-using BuildingBlocks.Exceptions.Handler;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-
 var builder = WebApplication.CreateBuilder(args);
 // Add Services
 var programAssemply = typeof(Program).Assembly;
