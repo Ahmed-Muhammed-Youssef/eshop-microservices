@@ -1,5 +1,4 @@
-﻿using Catalog.API.Products.GetProducts;
-
+﻿
 namespace Catalog.API.Products.GetProductByCategory
 {
     public record GetProductByCategoryResponse(IEnumerable<Product> Products);
@@ -15,7 +14,7 @@ namespace Catalog.API.Products.GetProductByCategory
                 return Results.Ok(response);
             })
             .WithName("GetProductByCategory")
-            .Produces<GetProductsResponse>(StatusCodes.Status200OK)
+            .Produces<GetProductByCategoryResponse>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .WithSummary("Get Product By Category")
             .WithDescription("Get Product By Category");
