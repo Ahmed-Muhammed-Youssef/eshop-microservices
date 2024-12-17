@@ -1,4 +1,6 @@
 
+using Catalog.API.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 // Add Services
 var programAssemply = typeof(Program).Assembly;
@@ -17,6 +19,11 @@ builder.Services.AddValidatorsFromAssembly(programAssemply);
 builder.Services.AddMarten(options => {
     options.Connection(builder.Configuration.GetConnectionString("PostgresConnection")!);
 }).UseLightweightSessions();
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.InitializeMartenWith<InitialData>();
+}
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
