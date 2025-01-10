@@ -1,8 +1,4 @@
-﻿using Carter;
-using Mapster;
-using MediatR;
-
-namespace Basket.API.Baskets.DeleteBasket
+﻿namespace Basket.API.Baskets.DeleteBasket
 {
     public record DeleteBasketResponse(bool IsSuccess);
     public class DeleteBasketEndpoint : ICarterModule

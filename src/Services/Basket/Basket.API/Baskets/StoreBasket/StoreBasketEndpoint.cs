@@ -1,9 +1,4 @@
-﻿using Basket.API.Models;
-using Carter;
-using Mapster;
-using MediatR;
-
-namespace Basket.API.Baskets.StoreBasket
+﻿namespace Basket.API.Baskets.StoreBasket
 {
     public record StoreBasketRequest(ShoppingCart Cart);
     public record StoreBasketResponse(string Username);

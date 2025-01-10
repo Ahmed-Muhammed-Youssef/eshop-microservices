@@ -1,8 +1,4 @@
-﻿using Basket.API.Models;
-using BuildingBlocks.CQRS;
-using FluentValidation;
-
-namespace Basket.API.Baskets.StoreBasket
+﻿namespace Basket.API.Baskets.StoreBasket
 {
     public record StoreBasketCommand(ShoppingCart Cart) : ICommand<StoreBasketResult>;
     public record StoreBasketResult(string Username);
