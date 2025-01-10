@@ -27,11 +27,15 @@ if (builder.Environment.IsDevelopment())
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
 
 // Configure Pipeline
 app.UseExceptionHandler(options => { });
 
 app.MapCarter();
+
+app.UseHealthChecks("/health");
 
 app.Run();
