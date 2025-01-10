@@ -1,9 +1,4 @@
-﻿using Basket.API.Models;
-using Carter;
-using Mapster;
-using MediatR;
-
-namespace Basket.API.Baskets.GetBasket
+﻿namespace Basket.API.Baskets.GetBasket
 {
     public record GetBasketResponse(ShoppingCart Cart);
     public class GetBasketEndpoint : ICarterModule

@@ -1,7 +1,4 @@
-﻿using BuildingBlocks.CQRS;
-using FluentValidation;
-
-namespace Basket.API.Baskets.DeleteBasket
+﻿namespace Basket.API.Baskets.DeleteBasket
 {
     public record DeleteBasketCommand(string Username) : ICommand<DeleteBasketResult>;
     public record DeleteBasketResult(bool IsSuccess);
