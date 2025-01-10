@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 var builder = WebApplication.CreateBuilder(args);
 // Add Services
 var programAssemply = typeof(Program).Assembly;
-
+var postgresConnectionString = builder.Configuration.GetConnectionString("PostgresConnection")!;
 builder.Services.AddCarter();
 
 builder.Services.AddMediatR(config => 
@@ -19,7 +19,7 @@ builder.Services.AddMediatR(config =>
 builder.Services.AddValidatorsFromAssembly(programAssemply);
 
 builder.Services.AddMarten(options => {
-    options.Connection(builder.Configuration.GetConnectionString("PostgresConnection")!);
+    options.Connection(postgresConnectionString);
 }).UseLightweightSessions();
 
 if (builder.Environment.IsDevelopment())
@@ -30,7 +30,7 @@ if (builder.Environment.IsDevelopment())
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 builder.Services.AddHealthChecks()
-    .AddNpgSql(builder.Configuration.GetConnectionString("PostgresConnection")!);
+    .AddNpgSql(postgresConnectionString);
 
 var app = builder.Build();
 
