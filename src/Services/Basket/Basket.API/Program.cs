@@ -2,6 +2,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services 
 var programAssemply = typeof(Program).Assembly;
+var postgresConnectionString = builder.Configuration.GetConnectionString("PostgresConnection")!;
 
 builder.Services.AddMediatR(config =>
 {
@@ -9,6 +10,10 @@ builder.Services.AddMediatR(config =>
     config.AddOpenBehavior(typeof(ValidationBehavior<,>));
     config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
+
+builder.Services.AddMarten(options => {
+    options.Connection(postgresConnectionString);
+}).UseLightweightSessions();
 
 builder.Services.AddCarter();
 
