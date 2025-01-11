@@ -54,12 +54,12 @@ Below is a high-level diagram of the architecture:
 
 ## Services
 
-| Service           | Description                         |    Architecture    | local Port |
-|-------------------|-------------------------------------|--------------------|------------|
-| Catalog           | Manages product catalog             |   Vertical Slice   |    5050    |
-| Basket            | Handles Baskets Creation and updates|                    |    5051    |
-| Ordering          | Handles order creation and updates  |                    |    5053    |
-| Discount          | Processes discounts                 |                    |            |
+| Service           | Description                         |    Architecture    | local Port | Docker Port |
+|-------------------|-------------------------------------|--------------------|------------|-------------|
+| Catalog           | Manages product catalog             |   Vertical Slice   |    5050    |     6060    |
+| Basket            | Handles Baskets Creation and updates|   Vertical Slice   |    5051    |     6061    |
+| Ordering          | Handles order creation and updates  |                    |    5053    |     6063    |
+| Discount          | Processes discounts                 |                    |            |             |
 
 ---
 
@@ -100,9 +100,9 @@ Ensure you have the following installed:
 ## To-Do List
 
 - [x] Implement Catalog Service
+- [x] Implement Basket Service
 - [ ] Implement Ordering Service
 - [ ] Implement Discount Service
-- [ ] Implement Basket Service
 - [ ] Implement Payment Service
 
 ---
