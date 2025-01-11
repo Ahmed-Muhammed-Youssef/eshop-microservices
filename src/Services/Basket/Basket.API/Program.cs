@@ -21,6 +21,8 @@ builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
 builder.Services.Decorate<IBasketRepository, CachedBasketRepository>();
 
+builder.Services.AddStackExchangeRedisCache(options => { options.Configuration = builder.Configuration.GetConnectionString("RedisConnection"); });
+
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
 var app = builder.Build();
