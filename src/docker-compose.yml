@@ -5,6 +5,8 @@ services:
     basketdb:
         image: postgres
         restart: always
+    distributedcache:
+        image: redis
     catalog.api:
         image: ${DOCKER_REGISTRY-}catalogapi
         build:
