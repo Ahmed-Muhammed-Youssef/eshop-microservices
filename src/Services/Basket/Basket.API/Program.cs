@@ -1,3 +1,5 @@
+using BuildingBlocks.Exceptions.Handler;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services 
@@ -19,9 +21,13 @@ builder.Services.AddCarter();
 
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
 var app = builder.Build();
 
 // Configure pipeline
+app.UseExceptionHandler(options => { });
+
 app.MapCarter();
 
 app.Run();
