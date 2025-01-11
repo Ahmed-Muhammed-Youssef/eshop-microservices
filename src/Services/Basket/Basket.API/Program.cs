@@ -1,8 +1,12 @@
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services 
 var programAssemply = typeof(Program).Assembly;
 var postgresConnectionString = builder.Configuration.GetConnectionString("PostgresConnection")!;
+var redisConnectionString = builder.Configuration.GetConnectionString("RedisConnection")!;
 
 builder.Services.AddMediatR(config =>
 {
@@ -21,9 +25,13 @@ builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
 builder.Services.Decorate<IBasketRepository, CachedBasketRepository>();
 
-builder.Services.AddStackExchangeRedisCache(options => { options.Configuration = builder.Configuration.GetConnectionString("RedisConnection"); });
+builder.Services.AddStackExchangeRedisCache(options => { options.Configuration = redisConnectionString; });
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
+builder.Services.AddHealthChecks()
+    .AddNpgSql(postgresConnectionString)
+    .AddRedis(redisConnectionString);
 
 var app = builder.Build();
 
@@ -31,5 +39,10 @@ var app = builder.Build();
 app.UseExceptionHandler(options => { });
 
 app.MapCarter();
+
+app.UseHealthChecks("/health", new HealthCheckOptions()
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 app.Run();
