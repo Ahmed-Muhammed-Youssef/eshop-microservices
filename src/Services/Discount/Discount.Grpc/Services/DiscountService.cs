@@ -52,9 +52,17 @@ namespace Discount.Grpc.Services
 
             return request;
         }
-        public override Task<DeleteDiscountResponse> DeleteDiscount(ProductKey request, ServerCallContext context)
+        public override async Task<DeleteDiscountResponse> DeleteDiscount(ProductKey request, ServerCallContext context)
         {
-            return base.DeleteDiscount(request, context);
+            Coupon coupon = dbContext.Coupons.FirstOrDefault(c => c.ProductName == request.ProductName) 
+                ?? throw new RpcException(new Status(StatusCode.NotFound, "No discount found"));
+
+            dbContext.Coupons.Remove(coupon);
+            await dbContext.SaveChangesAsync();
+
+            logger.LogInformation("Discount is deleted for ProductName {productName}", coupon.ProductName);
+
+            return new DeleteDiscountResponse() { Success = true };
         }
     }
 }
