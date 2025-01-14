@@ -58,8 +58,8 @@ Below is a high-level diagram of the architecture:
 |-------------------|-------------------------------------|--------------------|------------|-------------|
 | Catalog           | Manages product catalog             |   Vertical Slice   |    5050    |     6060    |
 | Basket            | Handles Baskets Creation and updates|   Vertical Slice   |    5051    |     6061    |
+| Discount          | Processes discounts                 |       N Tier       |    5052    |     6062    |
 | Ordering          | Handles order creation and updates  |                    |    5053    |     6063    |
-| Discount          | Processes discounts                 |                    |            |             |
 
 ---
 
@@ -67,7 +67,7 @@ Below is a high-level diagram of the architecture:
 
 - **Backend:** .NET 8, C#
 - **Messaging:** RabbitMQ
-- **Databases:** PostgreSQL, SQL Server and Redis
+- **Databases:** PostgreSQL, SQL Server, SQLite and Redis
 - **Containerization:** Docker, Docker Compose
 - **API Gateway:** Yarp
 
@@ -101,8 +101,8 @@ Ensure you have the following installed:
 
 - [x] Implement Catalog Service
 - [x] Implement Basket Service
+- [x] Implement Discount Service
 - [ ] Implement Ordering Service
-- [ ] Implement Discount Service
 - [ ] Implement Payment Service
 
 ---
