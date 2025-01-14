@@ -37,9 +37,20 @@ namespace Discount.Grpc.Services
 
             return request;
         }
-        public override Task<CouponModel> UpdateDiscount(CouponModel request, ServerCallContext context)
+        public override async Task<CouponModel> UpdateDiscount(CouponModel request, ServerCallContext context)
         {
-            return base.UpdateDiscount(request, context);
+            Coupon coupon = dbContext.Coupons.FirstOrDefault(c => c.ProductName == request.ProductName) ?? throw new RpcException(new Status(StatusCode.NotFound, "No discount found"));
+            
+            coupon.ProductName = request.ProductName;
+            coupon.Description = request.Description;
+            coupon.Amount = request.Amount;
+
+            dbContext.Entry(coupon).State = EntityState.Modified;
+            await dbContext.SaveChangesAsync();
+
+            logger.LogInformation("Discount is updated for ProductName {productName} with Amount {amount}", coupon.ProductName, coupon.Amount);
+
+            return request;
         }
         public override Task<DeleteDiscountResponse> DeleteDiscount(ProductKey request, ServerCallContext context)
         {
