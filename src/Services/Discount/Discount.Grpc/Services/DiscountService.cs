@@ -21,9 +21,21 @@ namespace Discount.Grpc.Services
             };
             return response;
         }
-        public override Task<CouponModel> CreateDiscount(CouponModel request, ServerCallContext context)
+        public override async Task<CouponModel> CreateDiscount(CouponModel request, ServerCallContext context)
         {
-            return base.CreateDiscount(request, context);
+            Coupon coupon = new()
+            {
+                Id = request.Id,
+                ProductName = request.ProductName,
+                Description = request.Description,
+                Amount = request.Amount 
+            };
+
+            dbContext.Coupons.Add(coupon);
+            await dbContext.SaveChangesAsync();
+            logger.LogInformation("Discount is created for ProductName {productName} with Amount {amount}", coupon.ProductName, coupon.Amount);
+
+            return request;
         }
         public override Task<CouponModel> UpdateDiscount(CouponModel request, ServerCallContext context)
         {
