@@ -33,6 +33,11 @@ builder.Services.AddHealthChecks()
     .AddNpgSql(postgresConnectionString)
     .AddRedis(redisConnectionString);
 
+builder.Services.AddGrpcClient<Discount.Grpc.Discount.DiscountClient>(o =>
+{
+    o.Address = new Uri(builder.Configuration["InternalApis:DiscountGrpc"]!);
+});
+
 var app = builder.Build();
 
 // Configure pipeline
