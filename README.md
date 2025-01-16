@@ -54,12 +54,12 @@ Below is a high-level diagram of the architecture:
 
 ## Services
 
-| Service           | Description                         |    Architecture    | local Port | Docker Port |
-|-------------------|-------------------------------------|--------------------|------------|-------------|
-| Catalog           | Manages product catalog             |   Vertical Slice   |    5050    |     6060    |
-| Basket            | Handles Baskets Creation and updates|   Vertical Slice   |    5051    |     6061    |
-| Discount          | Processes discounts                 |       N Tier       |    5052    |     6062    |
-| Ordering          | Handles order creation and updates  |                    |    5053    |     6063    |
+| Service           | Description                         |Database                       | Architecture       | local Port | Docker Port |
+|-------------------|-------------------------------------|-------------------------------|--------------------|------------|-------------|
+| Catalog           | Manages product catalog             |Postgres                       | Vertical Slice     |    5050    |     6060    |
+| Basket            | Handles Baskets Creation and updates|Postgres and Redis for caching | Vertical Slice     |    5051    |     6061    |
+| Discount          | Processes discounts                 |SqLite                         | N Tier             |    5052    |     6062    |
+| Ordering          | Handles order creation and updates  |SQL Server                     | Clean Architecture |    5053    |     6063    |
 
 ---
 
@@ -103,7 +103,8 @@ Ensure you have the following installed:
 - [x] Implement Basket Service
 - [x] Implement Discount Service
 - [ ] Implement Ordering Service
-- [ ] Implement Payment Service
+- [ ] Connect Services with RabbitMQ
+- [ ] Implement API Gateway
 
 ---
 
