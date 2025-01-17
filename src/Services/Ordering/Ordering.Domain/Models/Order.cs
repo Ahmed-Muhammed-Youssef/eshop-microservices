@@ -15,5 +15,51 @@
             return _orderItems.Sum(x => x.Price * x.Quantity);
         }
 
+        public static Order Create(Guid id, Guid customerId, string orderName, Address shippingAddress, Address billingAddress, Payment payment)
+        {
+            ArgumentNullException.ThrowIfNull(id);
+            ArgumentNullException.ThrowIfNull(customerId);
+            ArgumentException.ThrowIfNullOrEmpty(orderName);
+            ArgumentNullException.ThrowIfNull(shippingAddress);
+            ArgumentNullException.ThrowIfNull(billingAddress);
+            ArgumentNullException.ThrowIfNull(payment);
+
+
+            Order order = new Order() { Id = id, CustomerId = customerId, OrderName = orderName, ShippingAddress = shippingAddress, BillingAddress = billingAddress, Payment = payment, Status = OrderStatus.Pending };
+            order.AddDominEvent(new OrderCreatedEvent(order));
+           
+            return order;
+        }
+
+        public void Update(string orderName, Address shippingAddress, Address billingAddress, Payment payment, OrderStatus status)
+        {
+            OrderName = orderName;
+            ShippingAddress = shippingAddress;
+            BillingAddress = billingAddress;
+            Payment = payment;
+            Status = status;
+
+            this.AddDominEvent(new OrderUpdatedEvent(this));
+        }
+
+        public void Add(Guid productId, int quantity, decimal price)
+        {
+            ArgumentNullException.ThrowIfNull(productId);
+            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
+
+            OrderItem orderItem = new(orderId: Id, productId: productId, price: price, quantity: quantity);
+
+            _orderItems.Add(orderItem);
+        }
+
+        public void Remove(Guid productId) 
+        {
+            OrderItem? orderItem = _orderItems.FirstOrDefault(x => x.ProductId == productId);
+            if (orderItem != null) 
+            {
+                _orderItems.Remove(orderItem);
+            }
+        }
+
     }
 }
