@@ -4,5 +4,12 @@
     {
         public string Name { get; private set; } = default!;
         public string Email { get; private set; } = default!;
+        public static Customer CreateCustomer(Guid id, string name, string email)
+        {
+            ArgumentNullException.ThrowIfNull(name);
+            ArgumentNullException.ThrowIfNull(email);
+
+            return new Customer { Id = id, Name = name, Email = email };
+        }
     }
 }
