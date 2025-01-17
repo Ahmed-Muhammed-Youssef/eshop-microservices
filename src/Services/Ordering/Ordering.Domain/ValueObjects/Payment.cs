@@ -17,7 +17,7 @@
         public string CVV { get; } = default!;
         public int PaymentMethod { get; }
 
-        public static Payment CreatePayment(string? cardName, string cardNumber, string expiration, string cVV, int paymentMethod)
+        public static Payment Of(string? cardName, string cardNumber, string expiration, string cVV, int paymentMethod)
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(cardName, nameof(cardName));
             ArgumentException.ThrowIfNullOrWhiteSpace(expiration, nameof(expiration));
