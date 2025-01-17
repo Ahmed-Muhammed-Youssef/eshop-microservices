@@ -1,10 +1,10 @@
 ﻿namespace Ordering.Domain.Models
 {
-    public class Customer :Entity<Guid>
+    public class Customer : Entity<Guid>
     {
         public string Name { get; private set; } = default!;
         public string Email { get; private set; } = default!;
-        public static Customer CreateCustomer(Guid id, string name, string email)
+        public static Customer Create(Guid id, string name, string email)
         {
             ArgumentNullException.ThrowIfNull(name);
             ArgumentNullException.ThrowIfNull(email);
