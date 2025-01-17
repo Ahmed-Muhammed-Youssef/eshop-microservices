@@ -1,8 +1,4 @@
-﻿using Ordering.Domain.Abstractions;
-using Ordering.Domain.Enums;
-using Ordering.Domain.ValueObjects;
-
-namespace Ordering.Domain.Models
+﻿namespace Ordering.Domain.Models
 {
     public class Order : Aggregate<Guid>
     {
