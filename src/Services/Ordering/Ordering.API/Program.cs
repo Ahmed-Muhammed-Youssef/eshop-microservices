@@ -1,4 +1,5 @@
 using Ordering.API;
+using Ordering.API.Extensions;
 using Ordering.Application;
 using Ordering.Infrastructure;
 
@@ -11,5 +12,9 @@ builder.Services.AddApiServices();
 
 var app = builder.Build();
 // Configure Pipeline
+if (app.Environment.IsDevelopment())
+{
+    app.UseMigration();
+}
 
 app.Run();
