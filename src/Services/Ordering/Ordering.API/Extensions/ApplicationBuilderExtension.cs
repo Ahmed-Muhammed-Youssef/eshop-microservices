@@ -5,14 +5,28 @@ namespace Ordering.API.Extensions
 {
     public static class ApplicationBuilderExtension
     {
-        public static IApplicationBuilder UseMigration(this IApplicationBuilder applicationBuilder)
+        public static async Task<IApplicationBuilder> InitializeDatabaseAsync(this IApplicationBuilder applicationBuilder)
         {
             using var scope = applicationBuilder.ApplicationServices.CreateScope();
             using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-            dbContext.Database.MigrateAsync();
-
+            await dbContext.Database.MigrateAsync();
+            await SeedAsync(dbContext);
             return applicationBuilder;
+        }
+        private static async Task SeedAsync(ApplicationDbContext dbContext)
+        {
+            await SeedCustomersAsync(dbContext);
+        }
+
+        private static async Task SeedCustomersAsync(ApplicationDbContext dbContext)
+        {
+            if (!await dbContext.Customers.AnyAsync()) 
+            {
+                await dbContext.Customers.AddRangeAsync(InitialData.Customers);
+                await dbContext.SaveChangesAsync();
+            }
+
         }
     }
 }
