@@ -14,7 +14,7 @@ var app = builder.Build();
 // Configure Pipeline
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigration();
+    await app.InitializeDatabaseAsync();
 }
 
 app.Run();
