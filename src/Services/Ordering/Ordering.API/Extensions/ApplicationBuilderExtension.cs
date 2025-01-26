@@ -17,6 +17,8 @@ namespace Ordering.API.Extensions
         private static async Task SeedAsync(ApplicationDbContext dbContext)
         {
             await SeedCustomersAsync(dbContext);
+            await SeedProductsAsync(dbContext);
+            await SeedOrderWithItemsAsync(dbContext);
         }
 
         private static async Task SeedCustomersAsync(ApplicationDbContext dbContext)
@@ -27,6 +29,22 @@ namespace Ordering.API.Extensions
                 await dbContext.SaveChangesAsync();
             }
 
+        }
+        private static async Task SeedProductsAsync(ApplicationDbContext dbContext)
+        {
+            if (!await dbContext.Products.AnyAsync())
+            {
+                await dbContext.Products.AddRangeAsync(InitialData.Products);
+                await dbContext.SaveChangesAsync();
+            }
+        }
+        private static async Task SeedOrderWithItemsAsync(ApplicationDbContext dbContext)
+        {
+            if (!await dbContext.Orders.AnyAsync())
+            {
+                await dbContext.Orders.AddRangeAsync(InitialData.OrdersWithItems);
+                await dbContext.SaveChangesAsync();
+            }
         }
     }
 }
