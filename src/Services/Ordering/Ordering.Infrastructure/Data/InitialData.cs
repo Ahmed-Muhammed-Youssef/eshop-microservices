@@ -1,7 +1,4 @@
-﻿using Ordering.Domain.Models;
-using Ordering.Domain.ValueObjects;
-
-namespace Ordering.API.Extensions
+﻿namespace Ordering.Infrastructure.Data
 {
     public class InitialData
     {
