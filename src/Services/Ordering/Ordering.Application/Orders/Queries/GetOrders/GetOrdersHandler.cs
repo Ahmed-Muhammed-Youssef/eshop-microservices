@@ -15,10 +15,10 @@ namespace Ordering.Application.Orders.Queries.GetOrders
             List<OrderDto> orders = await dbContext.Orders
                .Include(o => o.OrderItems)
                .AsNoTracking()
-               .Select(o => o.ToOrderDto())
+               .OrderBy(o => o.OrderName)
                .Skip(request.PaginationRequest.PageIndex * request.PaginationRequest.PageSize)
                .Take(request.PaginationRequest.PageSize)
-               .OrderBy(o => o.OrderName)
+               .Select(o => o.ToOrderDto())
                .ToListAsync(cancellationToken);
 
             PaginatedResult<OrderDto> paginatedOrders = new(request.PaginationRequest.PageIndex, request.PaginationRequest.PageSize, count, orders);
