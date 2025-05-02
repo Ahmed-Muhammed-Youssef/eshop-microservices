@@ -11,8 +11,8 @@ namespace Ordering.Application.Orders.Queries.GetOrdersByName
                 .Include(o => o.OrderItems)
                 .AsNoTracking()
                 .Where(o => o.OrderName.Contains(request.Name))
-                .Select(o => o.ToOrderDto())
                 .OrderBy(o => o.OrderName)
+                .Select(o => o.ToOrderDto())
                 .ToListAsync(cancellationToken);
 
             return new GetOrderByNameQueryResult(orders);
