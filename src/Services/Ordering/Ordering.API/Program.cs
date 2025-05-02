@@ -1,3 +1,5 @@
+using Carter;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add Services
@@ -12,4 +14,5 @@ if (app.Environment.IsDevelopment())
     await app.InitializeDatabaseAsync();
 }
 
+app.MapCarter();
 app.Run();
