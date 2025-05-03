@@ -4,6 +4,8 @@
     {
         public string UserName { get; set; } = string.Empty;
         public Guid CustomerId { get; set; }
+        public decimal TotalPrice { get; set; }
+
         // Shipping and Billing Address
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
