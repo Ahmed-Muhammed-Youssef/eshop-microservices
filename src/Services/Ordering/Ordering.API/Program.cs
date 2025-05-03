@@ -13,6 +13,8 @@ if (app.Environment.IsDevelopment())
 {
     await app.InitializeDatabaseAsync();
 }
+// Configure Pipeline
+app.UseExceptionHandler(options => { });
 
 app.MapCarter();
 app.Run();
