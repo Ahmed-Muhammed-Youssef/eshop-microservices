@@ -20,7 +20,7 @@ namespace Ordering.API.Endpoints
             .Produces<CreateOrderResponse>(StatusCodes.Status201Created)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .WithSummary("Create Order")
-            .WithDescription("Create Order"); ;
+            .WithDescription("Create Order");
         }
     }
 }
