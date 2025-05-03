@@ -1,6 +1,6 @@
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-
+using BuildingBlocks.Messaging.MassTransit;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services 
@@ -34,17 +34,19 @@ builder.Services.AddHealthChecks()
     .AddRedis(redisConnectionString);
 
 builder.Services.AddGrpcClient<Discount.Grpc.Discount.DiscountClient>(o =>
-{
-    o.Address = new Uri(builder.Configuration["InternalApis:DiscountGrpc"]!);
-})
-.ConfigurePrimaryHttpMessageHandler(() =>
-{
-    var handler = new HttpClientHandler
     {
-        ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-    };
-    return handler;
-});
+        o.Address = new Uri(builder.Configuration["InternalApis:DiscountGrpc"]!);
+    })
+    .ConfigurePrimaryHttpMessageHandler(() =>
+    {
+        var handler = new HttpClientHandler
+        {
+            ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+        };
+        return handler;
+    });
+
+builder.Services.AddMessageBroker(builder.Configuration);
 
 var app = builder.Build();
 
