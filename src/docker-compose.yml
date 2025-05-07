@@ -9,6 +9,11 @@ services:
         image: redis
     orderdb:
         image: mcr.microsoft.com/mssql/server:2022-latest
+    messagebroker:
+        image: rabbitmq:management
+        ports:
+            - "15672:15672"
+            - "5672:5672"
     catalog.api:
         image: ${DOCKER_REGISTRY-}catalogapi
         build:
