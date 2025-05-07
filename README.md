@@ -103,7 +103,7 @@ Ensure you have the following installed:
 - [x] Implement Basket Service
 - [x] Implement Discount Service
 - [x] Implement Ordering Service
-- [ ] Connect Services with RabbitMQ
+- [x] Connect Services with RabbitMQ
 - [ ] Implement API Gateway
 
 ---
