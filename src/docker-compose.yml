@@ -35,8 +35,19 @@ services:
             context: .
             dockerfile: Services/Ordering/Ordering.API/Dockerfile
 
+    yarpapigateway:
+        image: ${DOCKER_REGISTRY-}yarpapigateway
+        depends_on:
+            - catalog.api
+            - basket.api
+            - ordering.api
+        build:
+            context: .
+            dockerfile: ApiGateways/YarpApiGateway/Dockerfile
+
 volumes:
     postgres_catalog: 
     postgres_basket:
+
 
 
