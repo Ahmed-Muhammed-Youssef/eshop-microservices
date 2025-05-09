@@ -65,7 +65,7 @@ Below is a high-level diagram of the architecture:
 
 ## Technologies
 
-- **Backend:** .NET 8, C#
+- **Backend:** .NET 9, C#
 - **Messaging:** RabbitMQ
 - **Databases:** PostgreSQL, SQL Server, SQLite and Redis
 - **Containerization:** Docker, Docker Compose
@@ -79,7 +79,7 @@ Below is a high-level diagram of the architecture:
 
 Ensure you have the following installed:
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/download)
+- [.NET 9 SDK](https://dotnet.microsoft.com/download)
 - [Docker](https://www.docker.com/get-started)
 
 ### Installation
