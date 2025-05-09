@@ -104,7 +104,8 @@ Ensure you have the following installed:
 - [x] Implement Discount Service
 - [x] Implement Ordering Service
 - [x] Connect Services with RabbitMQ
-- [ ] Implement API Gateway
+- [x] Implement API Gateway
+- [ ] Impelemnt client-side project
 
 ---
 
