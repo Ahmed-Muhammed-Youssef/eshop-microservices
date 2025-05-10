@@ -105,7 +105,7 @@ Ensure you have the following installed:
 - [x] Implement Ordering Service
 - [x] Connect Services with RabbitMQ
 - [x] Implement API Gateway
-- [ ] Impelemnt client-side project
+- [x] Impelemnt client-side project
 
 ---
 
