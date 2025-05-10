@@ -37,17 +37,21 @@ services:
 
     yarpapigateway:
         image: ${DOCKER_REGISTRY-}yarpapigateway
-        depends_on:
-            - catalog.api
-            - basket.api
-            - ordering.api
+        
         build:
             context: .
             dockerfile: ApiGateways/YarpApiGateway/Dockerfile
 
+    shopping.web:
+        image: ${DOCKER_REGISTRY-}shoppingweb
+        build:
+            context: .
+            dockerfile: WebApps/Shopping.Web/Dockerfile
+
 volumes:
     postgres_catalog: 
     postgres_basket:
+
 
 
 
